@@ -44,3 +44,21 @@ def api_books():
         book=Book(book_id=content['book_id'],name=content['name'],author=content['author'])
         book.save()
         return make_response("",201)
+@app.route('/api/books/<book_id>',methods=['GET','PUT','DELETE'])
+def api_each_books(book_id):
+    if request.method=='GET':
+        book_obj=Book.objects(book_id=book_id).first()
+        if book_obj:
+            return make_response(jsonify(book_obj.to_json()),200)
+        else:
+            return make_response("",404)
+    elif request.method=='PUT':
+        content=request.json
+        book_obj=Book.objects(book_id=book_id).first()
+        book_obj.update(author=content['author'],name=content['name'])
+        return make_response("",204)
+
+    elif request.method=='DELETE':
+        book_obj=Book.objects(book_id=book_id).first()
+        book_obj.delete()
+        return make_response("",204)
