@@ -10,3 +10,15 @@ DB_URI='mongodb+srv://vkvikashkumar987:{}@pycluster.uvhan.mongodb.net/API?retryW
 app.config['MONGODB_HOST']=DB_URI
 db=MongoEngine()
 db.init_app(app)
+
+class Book(db.Document):
+    book_id=db.IntField()
+    name=db.StringField()
+    author=db.StringField()
+
+    def to_json(self):
+        return {
+            "book_id": self.book_id,
+            "name":self.name,
+            "author":self.author
+        }
