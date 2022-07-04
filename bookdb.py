@@ -62,3 +62,5 @@ def api_each_books(book_id):
         book_obj=Book.objects(book_id=book_id).first()
         book_obj.delete()
         return make_response("",204)
+if __name__=='__main__':
+    app.run()
