@@ -22,3 +22,10 @@ class Book(db.Document):
             "name":self.name,
             "author":self.author
         }
+@app.route('/api/createBook',methods=['POST'])
+def db_populate():
+    book1=Book(book_id=1,name='Ulysses',author='James Joyce')
+    book2=Book(book_id=2,name='Don Quixote',author='Miguel de Cervantes')
+    book1.save()
+    book2.save()
+    return make_response("",201)
