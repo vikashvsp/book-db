@@ -29,3 +29,17 @@ def db_populate():
     book1.save()
     book2.save()
     return make_response("",201)
+
+@app.route('/api/books',methods=['GET','POST'])
+def api_books():
+
+    if request.method == "GET":
+        books=[]
+        for book in Book.objects:
+            books.append(book)
+        return make_response(jsonify(books),200)
+    elif request.method=='POST':
+        content=request.json
+        book=Book(book_id=content['book_id'],name=content['name'],author=content['author'])
+        book.save()
+        return make_response("",201)
